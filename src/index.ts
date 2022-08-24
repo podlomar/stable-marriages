@@ -1,4 +1,5 @@
 import { Instance } from "./instance.js";
+import { StablePairings } from "./stable-pairings.js";
 
 const instance = new Instance(8, [
   [2, 0, 4, 6, 3, 1, 7, 5],
@@ -20,4 +21,9 @@ const instance = new Instance(8, [
   [1, 4, 3, 2, 6, 7, 0, 5],
 ]);
 
-console.log(instance.toString());
+const stablePairings = new StablePairings(instance);
+const pairings = stablePairings.computeStablePairings();
+
+console.log('Total pairings: ', pairings.length);
+
+pairings.forEach((pairing) => console.log(pairing.toString()));
