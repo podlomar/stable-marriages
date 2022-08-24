@@ -1,0 +1,23 @@
+{
+  "name": "stable-marriages",
+  "version": "0.0.0",
+  "description": "Implementation of the extended Gale-Shapley algorithm for finding all stable marriages",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/podlomar/stable-marriages.git"
+  },
+  "author": "Martin Podloucký",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/podlomar/stable-marriages/issues"
+  },
+  "homepage": "https://github.com/podlomar/stable-marriages#readme",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}
