@@ -35,8 +35,9 @@ export class Instance {
   }
 
   public toString() {
-    let result = '';
-    
+    const indices = new Array(this.size).fill(0).map((_, i) => i);
+    let result = `${[...indices].reverse().join(' ')}           ${indices.join(' ')}\n\n`;
+
     for(let i = 0; i < this.size; i++) {
       const prefsM = this.prefsM[i]
         .map((pref) => String(pref))
