@@ -4,7 +4,7 @@ Implementation of the [extended Gale-Shapley algorithm](https://en.wikipedia.org
 
 ## Installation
 
-```
+```sh
 npm install stable-marriages
 ```
 
@@ -12,13 +12,13 @@ npm install stable-marriages
 
 First, import the `Instance` and `StablePairings` classes.
 
-```
+```js
 import { Instance, StablePairings } from "stable-marriages";
 ```
 
 An instance of size (for example) 8 has 8 man on one side and 8 women on the other side. Men and women have numbers from 0 to 7. For an instance of size 8 you need to provide two 8x8 matrices with all the preference lists, one matrix for men, one matrix for women. In each matrix an array on index `i` represents the preference list of man/woman with number `i`.
 
-```
+```js
 const instance = Instance.create(8, [
   [2, 0, 4, 6, 3, 1, 7, 5],
   [5, 0, 2, 3, 7, 6, 4, 1],
@@ -42,14 +42,14 @@ const instance = Instance.create(8, [
 
 Getting all stable pairings:
 
-```
+```js
 const stablePairings = new StablePairings(instance);
 const pairings = stablePairings.compute();
 ```
 
 For this particulast instance you should get 23 pairings. Each pairing is represented by the `Pairing` class. You can get the paired men and women from, say, the first pairing by looking at the array `pairings[0].pairs`.
 
-```
+```js
 console.log(pairings[0].pairs)
 // [2, 0, 6, 4, 3, 5, 7, 1]
 ```
