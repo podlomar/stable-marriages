@@ -55,3 +55,9 @@ console.log(pairings[0].pairs)
 ```
 
 This says that man `0` is paired with women `2`, man `1` with women `0` etc.
+
+## Performance
+
+The algorithm has worst case exponential complexity but for most random cases runs under few seconds for instances of size up to 800.
+
+The implementation is very basic and there are optimizations tgat could be added in the future.
