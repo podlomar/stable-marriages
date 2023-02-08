@@ -16,7 +16,7 @@ First, import the `Instance` and `StablePairings` classes.
 import { Instance, StablePairings } from "stable-marriages";
 ```
 
-An instance of size (for example) 8 has 8 man on one side and 8 women on the other side. Men and women have numbers from 0 to 7. For instance of size 8 you need to provide two 8x8 matrices with all the preference lists, one matrix for men, one matrix for women. In each matrix an array on index `i` represents the preference list of man/women with number `i`.
+An instance of size (for example) 8 has 8 man on one side and 8 women on the other side. Men and women have numbers from 0 to 7. For an instance of size 8 you need to provide two 8x8 matrices with all the preference lists, one matrix for men, one matrix for women. In each matrix an array on index `i` represents the preference list of man/woman with number `i`.
 
 ```
 const instance = Instance.create(8, [
@@ -40,11 +40,11 @@ const instance = Instance.create(8, [
 ]);
 ```
 
-Getting all the stable pairings:
+Getting all stable pairings:
 
 ```
 const stablePairings = new StablePairings(instance);
-const pairings = stablePairings.computeStablePairings();
+const pairings = stablePairings.compute();
 ```
 
 Each pairing is represented by the `Pairing` class. You can get the paired men and women in the first pairing by looking at the array `pairings[0].pairs`.
