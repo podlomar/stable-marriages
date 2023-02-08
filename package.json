@@ -9,7 +9,7 @@
     "build": "npm run clean && tsc",
     "dev": "tsc -w",
     "test": "node test/test.js",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
