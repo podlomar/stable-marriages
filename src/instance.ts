@@ -1,32 +1,84 @@
-import { shuffle, isPermutation } from "./helpers.js";
+export type Matrix = readonly number[][];
+
+const isPermutation = (inputArray: readonly number[]): boolean => {
+  const test = new Array(inputArray.length).fill(false);
+  for (let i = 0; i < inputArray.length; i++) {
+    const num = inputArray[i];
+    if (Number.isInteger(num) && num >= 0 && num < test.length) {
+      test[num] = true;
+    } else {
+      return false;
+    }
+  }
+
+  return test.every((t) => t);
+}
+
+export const isPreferencesMatrix = (matrix: Matrix, size: number): boolean => {
+  if (matrix.length !== size) {
+    return false;
+  }
+
+  for(let i = 0; i < size; i++) {
+    if (matrix[i].length !== size) {
+      return false;
+    }
+
+    if (!isPermutation(matrix[i])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+const shuffle = <T>(values: T[]): T[] => {
+  const result = [...values];
+
+  for (let i = 0; i < result.length; i++) {
+    const index = i + Math.floor(Math.random() * (result.length - i));
+    const temp = result[i];
+    result[i] = result[index];
+    result[index] = temp;
+  }
+
+  return result;
+};
 
 export class Instance {
   public readonly size: number;
-  public readonly prefsM: readonly number[][];
-  public readonly prefsW: readonly number[][];
+  public readonly prefsM: Matrix;
+  public readonly prefsW: Matrix;
 
-  public constructor(size: number, prefsM: readonly number[][], prefsW: readonly number[][]) {
-    const errorMsg = 'Invalid instance';
-  
-    if (prefsM.length !== size || prefsW.length !== size) {
-      throw new Error(errorMsg);
-    }
-
-    for(let i = 0; i < size; i++) {
-      if (prefsM[i].length !== size || prefsW[i].length !== size) {
-        throw new Error(errorMsg);
-      }
-
-      if (!isPermutation(prefsM[i]) || !isPermutation(prefsW[i])) {
-        throw new Error(errorMsg);
-      }
-    }
-
+  private constructor(size: number, prefsM: Matrix, prefsW: Matrix) {
     this.size = size;
     this.prefsM = prefsM;
     this.prefsW = prefsW;
   }
 
+  /**
+   * Create an instance of the marriages problem - men and women being matched together
+   * bases on thier preferences.
+   * 
+   * @param {number} size - The number of men (or women) in the instance
+   * @param {Matrix} prefsM - The matrix of men's preferences. An array on index `i` represents the preference list
+   * of man `i`.
+   * @param {Matrix} prefsW - The matrix of women's preferences. An array on index `i` represents the preference list
+   * of woman `i`.
+   */
+  public static create = (size: number, prefsM: Matrix, prefsW: Matrix): Instance => {
+    if (!isPreferencesMatrix(prefsM, size) || !isPreferencesMatrix(prefsW, size)) {
+      throw new Error('Invalid marriages instance');
+    }
+
+    return new Instance(size, prefsM, prefsW);
+  }
+
+  /**
+   * Create a completely random instance of size `size`.
+   * 
+   * @param {number} size - The number of men (or women) in the instance
+   */
   public static random = (size: number): Instance => {
     const elements: number[] = new Array(size).fill(null).map((_, i) => i);
     const prefsM = elements.map(() => shuffle(elements));
@@ -34,6 +86,9 @@ export class Instance {
     return new Instance(size, prefsM, prefsW);
   }
 
+  /**
+   * Nicely print the arrangment of this instance
+   */
   public toString() {
     const indices = new Array(this.size).fill(0).map((_, i) => i);
     let result = `${[...indices].reverse().join(' ')}           ${indices.join(' ')}\n\n`;

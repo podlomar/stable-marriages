@@ -1,6 +1,6 @@
 import { Instance, StablePairings } from "../dist/index.js";
 
-const instance = new Instance(8, [
+const instance = Instance.create(8, [
   [2, 0, 4, 6, 3, 1, 7, 5],
   [5, 0, 2, 3, 7, 6, 4, 1],
   [6, 3, 2, 5, 4, 0, 1, 7],
@@ -21,7 +21,7 @@ const instance = new Instance(8, [
 ]);
 
 const stablePairings = new StablePairings(instance);
-const pairings = stablePairings.computeStablePairings();
+const pairings = stablePairings.compute();
 
 console.log('Total pairings: ', pairings.length);
 

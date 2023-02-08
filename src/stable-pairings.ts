@@ -8,7 +8,7 @@ export class StablePairings {
     this.instance = instance;
   }
 
-  public computeStablePairings(): Pairing[] {
+  public compute(): Pairing[] {
     const pairing = this.findNextStablePairing(Pairing.empty(this.instance)) as Pairing;
     const results = this.findAllSolutions(pairing);
 
