@@ -47,7 +47,7 @@ const stablePairings = new StablePairings(instance);
 const pairings = stablePairings.compute();
 ```
 
-Each pairing is represented by the `Pairing` class. You can get the paired men and women in the first pairing by looking at the array `pairings[0].pairs`.
+For this particulast instance you should get 23 pairings. Each pairing is represented by the `Pairing` class. You can get the paired men and women from, say, the first pairing by looking at the array `pairings[0].pairs`.
 
 ```
 console.log(pairings[0].pairs)
