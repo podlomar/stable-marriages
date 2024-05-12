@@ -208,17 +208,3 @@ export class Pairing {
     return this.totalM + this.totalW;
   }
 }
-
-export const findBestPairing = (pairings: Pairing[]): Pairing => {
-  let index = -1;
-  let score = Infinity;
-
-  for(let i = 0; i < pairings.length; i++ ) {
-    if(pairings[i].total < score) {
-      score = pairings[i].total;
-      index = i;
-    }
-  }
-
-  return pairings[index];
-}
