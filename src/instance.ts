@@ -67,6 +67,10 @@ export class Instance {
    * of woman `i`.
    */
   public static create = (size: number, prefsM: Matrix, prefsW: Matrix): Instance => {
+    if (size < 1) {
+      throw new Error('Invalid marriages instance');
+    }
+    
     if (!isPreferencesMatrix(prefsM, size) || !isPreferencesMatrix(prefsW, size)) {
       throw new Error('Invalid marriages instance');
     }
@@ -91,7 +95,7 @@ export class Instance {
    */
   public toString() {
     const indices = new Array(this.size).fill(0).map((_, i) => i);
-    let result = `${[...indices].reverse().join(' ')}           ${indices.join(' ')}\n\n`;
+    let result = `${[...indices].reverse().join(' ')}           ${indices.join(' ')}\n`;
 
     for(let i = 0; i < this.size; i++) {
       const prefsM = this.prefsM[i]
@@ -102,7 +106,7 @@ export class Instance {
         .map((pref) => String(pref))
         .join(' ');
       
-      result += `${prefsM} | ${i} - ${i} | ${prefsW}\n`;
+      result += `\n${prefsM} | ${i} - ${i} | ${prefsW}`;
     }
       
     return result;
