@@ -73,25 +73,38 @@ export class Pairing {
     return this.pairs.map((val) => String(val)).join('');
   }
 
+  public measureStability(): number {
+    let maxImprovement = 0;
+    for (let m = 0; m < this.pairs.length; m++) {
+      for (let w = 0; w < this.pairs.length; w++) {
+        if (this.pairs[m] !== w) {
+          const scoreM = this.instance.prefsM[m].findIndex((pref) => pref === w);
+          const scoreW = this.instance.prefsW[w].findIndex((pref) => pref === m);
+          const improvementM = this.scoresM[m] - scoreM;
+          const improvementW = this.scoresW[w] - scoreW;
+  
+          if (improvementM > 0 && improvementW > 0) {
+            const improvement = Math.max(improvementM, improvementW);
+            if (improvement > maxImprovement) {
+              maxImprovement = improvement;
+            }
+          }
+        }
+      }
+    }
+  
+    if (maxImprovement !== 3) {
+      console.log('DEBUG I:', maxImprovement);
+    }
+    return maxImprovement;
+  }
+
   public isStable(): boolean {
     if (this.freeMs !== null) {
       return false;
     }
     
-    for(let i = 0; i < this.pairs.length; i++) {
-      for(let j = 0; j < this.pairs.length; j++) {
-        if (this.pairs[i] !== j) {
-          const scoreA = this.instance.prefsM[i].findIndex((pref) => pref === j);
-          const scoreB = this.instance.prefsW[j].findIndex((pref) => pref === i);
-  
-          if (scoreA < this.scoresM[i] && scoreB < this.scoresW[j]) {
-            return false;
-          }
-        }
-      }
-    }
-
-    return true;
+    return this.measureStability() === 0;
   }
 
   public break(m: number): Pairing | null {
